@@ -1,6 +1,5 @@
 package ru.javawebinar.topjava.model;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -9,7 +8,7 @@ public class UserMeal {
 
     private final String description;
 
-    private final Integer calories;
+    private final int calories;
 
     public UserMeal(LocalDateTime dateTime, String description, int calories) {
         this.dateTime = dateTime;
@@ -21,7 +20,7 @@ public class UserMeal {
         return dateTime;
     }
 
-    public LocalDate getDay() {
+    public LocalDate getDate() {
         return dateTime.toLocalDate();
     }
 
