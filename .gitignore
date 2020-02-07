@@ -4,3 +4,4 @@
 *.iml
 log
 *.patch
+*.bash_profile
