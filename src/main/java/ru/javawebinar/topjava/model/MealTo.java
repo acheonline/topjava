@@ -1,21 +1,37 @@
 package ru.javawebinar.topjava.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class MealTo {
-    private final LocalDateTime dateTime;
+public class MealTo implements Serializable {
+    private static final long serialVersionUID = 2L;
 
-    private final String description;
+    private LocalDateTime dateTime;
 
-    private final int calories;
+    private String description;
 
-    private final boolean excess;
+    private int calories;
+
+    private boolean excess;
+
+    private String uuid;
+
+    public MealTo(String uuid, LocalDateTime dateTime, String description, int calories, boolean excess) {
+        this.dateTime = dateTime;
+        this.description = description;
+        this.calories = calories;
+        this.excess = excess;
+        this.uuid = uuid;
+    }
 
     public MealTo(LocalDateTime dateTime, String description, int calories, boolean excess) {
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;
         this.excess = excess;
+    }
+
+    public MealTo() {
     }
 
     @Override
@@ -25,6 +41,27 @@ public class MealTo {
                 ", description='" + description + '\'' +
                 ", calories=" + calories +
                 ", excess=" + excess +
+                ", uuid='" + uuid + '\'' +
                 '}';
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public boolean isExcess() {
+        return excess;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getCalories() {
+        return calories;
     }
 }
