@@ -19,7 +19,7 @@
             color: red;
         }
     </style>
-    <a href="meal?action=add">Добавить еду</a>
+    <a href="meals?action=add">Добавить еду</a>
     <table align="center" border="1" cellpadding="8" cellspacing="0">
         <tr>
             <th>Дата и время</th>

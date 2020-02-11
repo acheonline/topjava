@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="30 seconds">
 
-    <property name="TOPJAVA_ROOT" value="/Users/antonchernyavskiy/Desktop/projects/topjava"/>
-
     <!-- To enable JMX Management -->
     <jmxConfigurator/>
 
