@@ -27,25 +27,25 @@
             <th>Калории</th>
             <th colspan="2"></th>
         </tr>
-        <c:forEach items="${meals}" var="mealTo">
+        <c:forEach items="${mapTo}" var="entry">
             <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.MealTo" scope="request"/>
             <c:choose>
-                <c:when test="${mealTo.excess == 'true'}">
+                <c:when test="${entry.value.excess == 'true'}">
                     <tr class="red">
-                        <td>${mealTo.dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))}</td>
-                        <td>${mealTo.description}</td>
-                        <td>${mealTo.calories}</td>
-                        <td><a href="meals?uuid=${meal.uuid}&action=delete">Delete</a></td>
-                        <td><a href="meals?uuid=${meal.uuid}&action=edit">Edit</a></td>
+                        <td>${entry.value.dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))}</td>
+                        <td>${entry.value.description}</td>
+                        <td>${entry.value.calories}</td>
+                        <td><a href="meals?uuid=${entry.key}&action=delete">Delete</a></td>
+                        <td><a href="meals?uuid=${entry.key}&action=edit">Edit</a></td>
                     </tr>
                 </c:when>
                 <c:otherwise>
                     <tr class="green">
-                        <td>${mealTo.dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))}</td>
-                        <td>${mealTo.description}</td>
-                        <td>${mealTo.calories}</td>
-                        <td><a href="meals?uuid=${meal.uuid}&action=delete">Delete</a></td>
-                        <td><a href="meals?uuid=${meal.uuid}&action=edit">Edit</a></td>
+                        <td>${entry.value.dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))}</td>
+                        <td>${entry.value.description}</td>
+                        <td>${entry.value.calories}</td>
+                        <td><a href="meals?uuid=${entry.key}&action=delete">Delete</a></td>
+                        <td><a href="meals?uuid=${entry.key}&action=edit">Edit</a></td>
                     </tr>
                 </c:otherwise>
             </c:choose>

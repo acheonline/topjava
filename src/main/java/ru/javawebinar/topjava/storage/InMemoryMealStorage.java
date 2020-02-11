@@ -2,6 +2,7 @@ package ru.javawebinar.topjava.storage;
 
 import org.slf4j.Logger;
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.model.MealTo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ import static org.slf4j.LoggerFactory.getLogger;
  *
  * @author a.chernyavskiy0n
  */
-public class InMemoryMealStorage implements Storage {
+public class InMemoryMealStorage implements CRUDMealStorage {
 
     private static final Logger log = getLogger(InMemoryMealStorage.class);
 
@@ -25,7 +26,6 @@ public class InMemoryMealStorage implements Storage {
 
     public InMemoryMealStorage() {
         log.info("Storage was created");
-        //this.map = MealsUtil.filteredStream(MealsUtil.meals, 2000);
     }
 
     @Override
@@ -58,5 +58,18 @@ public class InMemoryMealStorage implements Storage {
         } else {
             return counter++;
         }
+    }
+
+    public int getMealById(Meal meal) {
+        return getSearchKey(meal);
+    }
+
+    public int getCounter() {
+        return counter;
+    }
+
+    @Override
+    public Map<Integer, Meal> getMap() {
+        return null;
     }
 }
