@@ -1,9 +1,9 @@
 package ru.javawebinar.topjava.storage;
 
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.model.MealTo;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 2020-02-11
@@ -13,13 +13,12 @@ import java.util.Map;
 public interface CRUDMealStorage {
     void save(Meal meal);
 
-    void delete(String id);
+    void delete(int id);
 
-    Meal get(String id);
+    Meal get(int id);
 
-    List<Meal> getAll();
+    void update(Meal meal);
 
-    Map<Integer, Meal> getMap();
+    List<MealTo> getAllFiltered();
 
-    int getMealById(Meal meal);
 }

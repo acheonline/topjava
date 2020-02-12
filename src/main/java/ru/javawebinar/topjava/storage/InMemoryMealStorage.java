@@ -3,11 +3,10 @@ package ru.javawebinar.topjava.storage;
 import org.slf4j.Logger;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.model.MealTo;
+import ru.javawebinar.topjava.util.MealsUtil;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -20,9 +19,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 public class InMemoryMealStorage implements CRUDMealStorage {
 
     private static final Logger log = getLogger(InMemoryMealStorage.class);
-
-    private Map<Integer, Meal> map = new ConcurrentHashMap<>();
-    private int counter;
+    private List<Meal> list = new CopyOnWriteArrayList<>();
 
     public InMemoryMealStorage() {
         log.info("Storage was created");
@@ -31,45 +28,29 @@ public class InMemoryMealStorage implements CRUDMealStorage {
     @Override
     public void save(Meal meal) {
         log.info("Save " + meal);
-        map.put(getSearchKey(meal), meal);
+        list.add(meal);
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(int id) {
         log.info("Delete " + id);
-        map.remove(Integer.parseInt(id));
+        list.remove(id);
     }
 
     @Override
-    public Meal get(String id) {
+    public Meal get(int id) {
         log.info("Get " + id);
-        return map.get(Integer.parseInt(id));
+        return list.get(id);
     }
 
     @Override
-    public List<Meal> getAll() {
+    public void update(Meal meal) {
+        list.set(list.indexOf(meal), meal);
+    }
+
+    @Override
+    public List<MealTo> getAllFiltered() {
         log.info("getAll");
-        return new ArrayList<>(map.values());
-    }
-
-    private int getSearchKey(Meal meal) {
-        if (map.containsValue(meal)) {
-            return counter;
-        } else {
-            return counter++;
-        }
-    }
-
-    public int getMealById(Meal meal) {
-        return getSearchKey(meal);
-    }
-
-    public int getCounter() {
-        return counter;
-    }
-
-    @Override
-    public Map<Integer, Meal> getMap() {
-        return null;
+        return MealsUtil.filteredByStreams(list, MealsUtil.MIN, MealsUtil.MAX, 2000);
     }
 }

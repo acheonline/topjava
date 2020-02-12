@@ -27,28 +27,14 @@
             <th>Калории</th>
             <th colspan="2"></th>
         </tr>
-        <c:forEach items="${mapTo}" var="entry">
-            <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.MealTo" scope="request"/>
-            <c:choose>
-                <c:when test="${entry.value.excess == 'true'}">
-                    <tr class="red">
-                        <td>${entry.value.dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))}</td>
-                        <td>${entry.value.description}</td>
-                        <td>${entry.value.calories}</td>
-                        <td><a href="meals?uuid=${entry.key}&action=delete">Delete</a></td>
-                        <td><a href="meals?uuid=${entry.key}&action=edit">Edit</a></td>
+        <c:forEach items="${listTo}" var="mealTo">
+                    <tr class=${mealTo.excess == 'true' ? 'red' : 'green'}>
+                        <td>${mealTo.dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))}</td>
+                        <td>${mealTo.description}</td>
+                        <td>${mealTo.calories}</td>
+                        <td><a href="meals?id=${mealTo.id}&action=delete">Delete</a></td>
+                        <td><a href="meals?id=${mealTo.id}&action=edit">Edit</a></td>
                     </tr>
-                </c:when>
-                <c:otherwise>
-                    <tr class="green">
-                        <td>${entry.value.dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))}</td>
-                        <td>${entry.value.description}</td>
-                        <td>${entry.value.calories}</td>
-                        <td><a href="meals?uuid=${entry.key}&action=delete">Delete</a></td>
-                        <td><a href="meals?uuid=${entry.key}&action=edit">Edit</a></td>
-                    </tr>
-                </c:otherwise>
-            </c:choose>
         </c:forEach>
     </table>
 </section>
