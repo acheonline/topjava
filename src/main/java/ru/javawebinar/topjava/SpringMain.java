@@ -1,6 +1,8 @@
 package ru.javawebinar.topjava;
 
+import org.springframework.context.ConfigurableApplicationContext;
 import ru.javawebinar.topjava.repository.UserRepository;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Arrays;
 
