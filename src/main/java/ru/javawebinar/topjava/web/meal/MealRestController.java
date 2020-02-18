@@ -18,12 +18,6 @@ import static ru.javawebinar.topjava.util.ValidationUtil.checkNew;
 public class MealRestController {
     private static final Logger log = getLogger(MealRestController.class);
 
-    {
-        for (Meal meal : MealsUtil.MEALS) {
-            create(meal, 1);
-        }
-    }
-
     @Autowired
     private MealService service;
 
@@ -32,9 +26,9 @@ public class MealRestController {
         return service.getAll();
     }
 
-    public Meal get(int id) {
+    public Meal get(int id, Integer userId) {
         log.info("get {" + id + "}");
-        return service.get(id);
+        return service.get(id, userId);
     }
 
     public Meal create(Meal meal, Integer userId) {
@@ -43,12 +37,12 @@ public class MealRestController {
         return service.create(meal, userId);
     }
 
-    public void delete(int id) {
+    public void delete(int id, Integer userId) {
         log.info("delete {" + id + "}");
-        service.delete(id);
+        service.delete(id, userId);
     }
 
-    public void update(Meal meal, int id) {
+    public void update(Meal meal, int id, Integer userId) {
         log.info("update {" + meal.getDescription()
                 + "} with user_id = {" + meal.getUserId()
                 + "} of id {" + id);
@@ -56,7 +50,7 @@ public class MealRestController {
         service.update(meal, meal.getUserId());
     }
 
-    public List<MealTo> convertTo(List<Meal> repo, Integer userId, int caloriesPerDay) {
-       return service.getTos(repo, userId, caloriesPerDay);
+    public List<MealTo> convertTo(Integer userId, int caloriesPerDay) {
+       return service.getTos(userId, caloriesPerDay);
     }
 }

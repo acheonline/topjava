@@ -40,7 +40,7 @@ public class InMemoryUserRepository implements UserRepository {
     @Override
     public User get(int id) {
         log.info("get {}", id);
-        return id == 0 ? repository.get(id) : null;
+        return repository.get(id);
     }
 
     @Override

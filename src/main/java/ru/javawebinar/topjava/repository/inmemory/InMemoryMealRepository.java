@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
+import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -35,26 +36,34 @@ public class InMemoryMealRepository implements MealRepository {
     }
 
     @Override
-    public boolean delete(int id) {
-        log.info("Delete " + id);
-        return repository.remove(id) != null;
+    public boolean delete(int id, Integer userId) {
+        if (repository.get(id).getUserId() == userId) {
+            log.info("Delete " + id);
+            return repository.remove(id) != null;
+        } else {
+            throw new NotFoundException("Not that user Id");
+        }
     }
 
     @Override
-    public Meal getByUserId(int id, int userId) {
-        log.info("Get bi UserId " + id);
+    public Meal getByUserId(int id, Integer userId) {
+        log.info("Get by UserId " + id);
         Meal meal = repository.get(id);
         return meal.getUserId() == userId ? meal : null;
     }
 
     @Override
-    public Meal get(int id) {
-        log.info("Get " + id);
-        return repository.get(id);
+    public Meal get(int id, Integer userId) {
+        if (repository.get(id).getUserId() == userId) {
+            log.info("Get " + id);
+            return repository.get(id);
+        } else {
+            throw new NotFoundException("Not that user Id");
+        }
     }
 
     @Override
-    public List<Meal> getAllByUserId(int userId) {
+    public List<Meal> getAllByUserId(Integer userId) {
         log.info("Get All By User ID");
         return repository.values().stream()
                 .filter(meal -> meal.getUserId() == userId)
