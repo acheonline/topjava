@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava;
 
 import org.springframework.context.ConfigurableApplicationContext;
+import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.repository.UserRepository;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -14,6 +15,8 @@ public class SpringMain {
 //        UserRepository userRepository = (UserRepository) appCtx.getBean("inmemoryUserRepository");
         UserRepository userRepository = appCtx.getBean(UserRepository.class);
         userRepository.getAll();
+        MealRepository mealRepository = appCtx.getBean(MealRepository.class);
+        mealRepository.getAllByUserId(1).forEach(System.out::println);
         appCtx.close();
     }
 }

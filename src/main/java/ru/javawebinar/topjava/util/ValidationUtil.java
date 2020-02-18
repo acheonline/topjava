@@ -40,4 +40,8 @@ public class ValidationUtil {
             throw new IllegalArgumentException(entity + " must be with id=" + id);
         }
     }
+
+    public static void checkIfRegistered(Integer userId) {
+        if (userId == 0) throw new NotFoundException("User is not registered " + userId);
+    }
 }
