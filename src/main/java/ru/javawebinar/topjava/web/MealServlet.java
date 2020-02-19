@@ -22,7 +22,6 @@ public class MealServlet extends HttpServlet {
     private static final Logger log = LoggerFactory.getLogger(MealServlet.class);
     private ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml");
     private MealRestController controller = appCtx.getBean(MealRestController.class);
-    ;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -43,7 +42,11 @@ public class MealServlet extends HttpServlet {
                 Integer.parseInt(request.getParameter("calories")), SecurityUtil.authUserId());
 
         log.info(meal.isNew() ? "Create {}" : "Update {}", meal);
-        controller.create(meal, SecurityUtil.authUserId());
+        if (id == null) {
+            controller.create(meal, SecurityUtil.authUserId());
+        } else {
+            controller.update(meal, Integer.valueOf(id), SecurityUtil.authUserId());
+        }
         response.sendRedirect("meals");
     }
 
@@ -70,7 +73,7 @@ public class MealServlet extends HttpServlet {
             default:
                 log.info("getAll");
                 request.setAttribute("meals",
-                        controller.convertTo(SecurityUtil.authUserId(), SecurityUtil.authUserCaloriesPerDay()));
+                        controller.getAll(SecurityUtil.authUserId(), SecurityUtil.authUserCaloriesPerDay()));
                 request.getRequestDispatcher("/meals.jsp").forward(request, response);
                 break;
         }

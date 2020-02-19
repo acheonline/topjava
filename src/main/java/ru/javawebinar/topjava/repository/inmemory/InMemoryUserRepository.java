@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
-import ru.javawebinar.topjava.util.UsersUtil;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,10 +15,6 @@ public class InMemoryUserRepository implements UserRepository {
 
     private Map<Integer, User> repository = new HashMap<>();
     private int counter;
-
-    {
-        UsersUtil.USERS.forEach(this::save);
-    }
 
     @Override
     public boolean delete(int id) {

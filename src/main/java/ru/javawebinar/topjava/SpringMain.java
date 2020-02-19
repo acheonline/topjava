@@ -16,7 +16,7 @@ public class SpringMain {
         UserRepository userRepository = appCtx.getBean(UserRepository.class);
         userRepository.getAll();
         MealRepository mealRepository = appCtx.getBean(MealRepository.class);
-        mealRepository.getAllByUserId(1).forEach(System.out::println);
+        mealRepository.getAll(1).forEach(System.out::println);
         appCtx.close();
     }
 }

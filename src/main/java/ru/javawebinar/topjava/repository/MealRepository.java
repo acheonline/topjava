@@ -14,10 +14,5 @@ public interface MealRepository {
     // null if not found
     Meal get(int id, Integer userId);
 
-    Meal getByUserId(int id, Integer userId);
-
-    List<Meal> getAll();
-
-    List<Meal> getAllByUserId(Integer userId);
-
+    List<Meal> getAll(Integer userId);
 }

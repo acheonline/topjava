@@ -6,7 +6,6 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -24,15 +23,18 @@ public class InMemoryMealRepository implements MealRepository {
 
     @Override
     public Meal save(Meal meal, Integer userId) {
-        log.info("Save " + meal);
-        if (meal.isNew()) {
-            meal.setId(counter.incrementAndGet());
-            meal.setUserId(userId);
-            repository.put(meal.getId(), meal);
-            return meal;
+        if (meal.getUserId() == userId) {
+            log.info("Save " + meal);
+            if (meal.isNew()) {
+                meal.setId(counter.incrementAndGet());
+                meal.setUserId(userId);
+                repository.put(meal.getId(), meal);
+                return meal;
+            }
+            return repository.computeIfPresent(meal.getId(), (id, oldMeal) -> meal);
+        } else {
+            return null;
         }
-        // handle case: update, but not present in storage
-        return repository.computeIfPresent(meal.getId(), (id, oldMeal) -> meal);
     }
 
     @Override
@@ -41,15 +43,8 @@ public class InMemoryMealRepository implements MealRepository {
             log.info("Delete " + id);
             return repository.remove(id) != null;
         } else {
-            throw new NotFoundException("Not that user Id");
+            return false;
         }
-    }
-
-    @Override
-    public Meal getByUserId(int id, Integer userId) {
-        log.info("Get by UserId " + id);
-        Meal meal = repository.get(id);
-        return meal.getUserId() == userId ? meal : null;
     }
 
     @Override
@@ -58,23 +53,17 @@ public class InMemoryMealRepository implements MealRepository {
             log.info("Get " + id);
             return repository.get(id);
         } else {
-            throw new NotFoundException("Not that user Id");
+            return null;
         }
     }
 
     @Override
-    public List<Meal> getAllByUserId(Integer userId) {
-        log.info("Get All By User ID");
+    public List<Meal> getAll(Integer userId) {
+        log.info("getAll");
         return repository.values().stream()
                 .filter(meal -> meal.getUserId() == userId)
                 .sorted(Comparator.comparing(Meal::getDateTime).reversed())
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Meal> getAll() {
-        log.info("getAll");
-        return new ArrayList<>(repository.values());
     }
 }
 

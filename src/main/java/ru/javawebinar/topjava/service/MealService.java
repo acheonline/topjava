@@ -31,8 +31,8 @@ public class MealService {
         return checkNotFoundWithId(repository.get(id, userId), id);
     }
 
-    public List<Meal> getAll() {
-        return repository.getAll();
+    public List<Meal> getAll(Integer userId) {
+        return repository.getAll(userId);
     }
 
     public void update(Meal meal, Integer userId) {
@@ -40,6 +40,6 @@ public class MealService {
     }
 
     public List<MealTo> getTos(Integer userId, int caloriesPerDay) {
-        return MealsUtil.getTos(repository.getAll(), userId, caloriesPerDay);
+        return MealsUtil.getTos(repository.getAll(userId), caloriesPerDay);
     }
 }

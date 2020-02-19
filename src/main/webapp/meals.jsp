@@ -49,6 +49,22 @@
             </tr>
         </c:forEach>
     </table>
+    <%--<br>--%>
+    <%--<br>--%>
+    <%--<form action="/action_page.php">--%>
+        <%--<label for="fromDate">fromDate:</label>--%>
+        <%--<input type="date" id="fromDate" name="fromDate">--%>
+        <%--<label for="endDate">endDate:</label>--%>
+        <%--<input type="date" id="endDate" name="endDate">--%>
+
+        <%--<label for="fromTime">fromTime:</label>--%>
+        <%--<input type="time" id="fromTime" name="fromTime">--%>
+        <%--<label for="endTime">endTime:</label>--%>
+        <%--<input type="time" id="endTime" name="endTime">--%>
+
+        <%--<input type="submit" value="Submit">--%>
+        <%--<input type="reset" value="Reset">--%>
+    <%--</form>--%>
 </section>
 </body>
 </html>
