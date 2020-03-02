@@ -19,7 +19,9 @@ import java.time.LocalTime;
 })
 
 @Entity
-@Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = "id", name = "meals_unique_id_idx")})
+@Table(name = "meals", uniqueConstraints = {
+//        @UniqueConstraint(columnNames = "id", name = "meals_unique_id_idx"),
+        @UniqueConstraint(columnNames = "date_time", name = "meals_unique_user_datetime_idx")})
 public class Meal extends AbstractBaseEntity {
 
     public static final String BY_USER = "Meal.get";
@@ -28,7 +30,7 @@ public class Meal extends AbstractBaseEntity {
     public static final String BETWEEN = "Meal.getBetweenHalfOpen";
 
 
-    @Column(name = "datetime", nullable = false, columnDefinition = "timestamp default now()")
+    @Column(name = "date_time", nullable = false, columnDefinition = "timestamp default now()")
     @NotNull
     private LocalDateTime dateTime;
 
