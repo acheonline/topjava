@@ -56,9 +56,6 @@ public class User extends AbstractNamedEntity {
     @Range(min = 10, max = 10000)
     private int caloriesPerDay = DEFAULT_CALORIES_PER_DAY;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Meal meal;
-
     public User() {
     }
 
@@ -122,14 +119,6 @@ public class User extends AbstractNamedEntity {
 
     public String getPassword() {
         return password;
-    }
-
-    public Meal getMeal() {
-        return meal;
-    }
-
-    public void setMeal(Meal meal) {
-        this.meal = meal;
     }
 
     public void setRoles(Collection<Role> roles) {
