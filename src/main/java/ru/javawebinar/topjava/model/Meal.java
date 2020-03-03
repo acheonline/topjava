@@ -20,7 +20,6 @@ import java.time.LocalTime;
 
 @Entity
 @Table(name = "meals", uniqueConstraints = {
-//        @UniqueConstraint(columnNames = "id", name = "meals_unique_id_idx"),
         @UniqueConstraint(columnNames = "date_time", name = "meals_unique_user_datetime_idx")})
 public class Meal extends AbstractBaseEntity {
 
@@ -43,7 +42,7 @@ public class Meal extends AbstractBaseEntity {
     @Range(min = 10, max = 10000)
     private int calories;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.PERSIST)
     private User user;
 
     public Meal() {
