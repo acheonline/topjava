@@ -16,7 +16,7 @@
 
     <cache-template name="singleNonExpiryCache">
         <expiry>
-            <none/>
+            <none/>rror: Plugin "QA
         </expiry>
         <heap>1</heap>
     </cache-template>
