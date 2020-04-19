@@ -5,3 +5,4 @@
 log
 *.patch
 *.bash_profile
+/pom.rng
