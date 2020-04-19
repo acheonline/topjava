@@ -13,7 +13,7 @@ public class RootControllerTest extends AbstractControllerTest {
 
     @Test
     public void getUsers() throws Exception {
-        mockMvc.perform(get("/users"))
+        perform(get("/users"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("users"))
